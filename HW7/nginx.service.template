@@ -1,0 +1,15 @@
+[Unit]
+Description=A high performance web server on port ${PORT}
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx-port${PORT}.pid
+ExecStartPre=/usr/sbin/nginx -t -c /etc/nginx/sites/port${PORT}/nginx.conf
+ExecStart=/usr/sbin/nginx -c /etc/nginx/sites/port${PORT}/nginx.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

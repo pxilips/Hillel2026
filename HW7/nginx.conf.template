@@ -1,0 +1,37 @@
+worker_processes auto;
+pid /run/nginx-port${PORT}.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 768;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    gzip on;
+
+    server {
+        listen ${PORT} default_server;
+        listen [::]:${PORT} default_server;
+
+        root /var/www/port${PORT}/html;
+        index index.html index.htm;
+
+        server_name localhost 127.0.0.1;
+
+        access_log /var/log/nginx/sites/port${PORT}/access.log;
+        error_log /var/log/nginx/sites/port${PORT}/error.log;
+
+        location / {
+            try_files $uri /index.html;
+        }
+    }
+}
