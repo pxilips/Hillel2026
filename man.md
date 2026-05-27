@@ -1,6 +1,6 @@
 # Systemd Diagnostic Cheat Sheet
 
-### Boot Time & Process Analysis
+### 📊 Boot Time & Process Analysis
 
 <details>
 <summary><b>ps xawf</b> — Process Tree Diagram</summary>
@@ -36,7 +36,7 @@
 
 ---
 
-### Visualizing Dependencies (Graphviz)
+### 🎨 Visualizing Dependencies (Graphviz)
 
 <details>
 <summary><b>sudo apt install graphviz</b> — Graphic Engine Setup</summary>
@@ -53,13 +53,3 @@
 * **Що робить:** Генерує інтерактивний векторний графік часової шкали всього процесу завантаження.
 * **Що побачимо:** Кольорову діаграму, де по осі X йде час, а по осі Y — список сервісів із смугами, які показують, коли кожен з них стартував і фінішував.
 </details>
-
-<details>
-<summary><b>systemd-analyze dot ... | dot -Tsvg > targets.svg</b> — Target Flowchart</summary>
-
-* **Навіщо і коли:** Щоб розібратися в архітектурних етапах (Targets) завантаження Linux.
-* **Що робить:** Фільтрує тисячі окремих сервісів і мапує зв'язки виключно між юнітами типу `.target`.
-* **Що побачимо:** Чисту блок-схему зі стрілками, яка показує послідовність етапів завантаження (наприклад, *Basic* ➔ *Network* ➔ *Multi-user*).
-</details>
-
----
