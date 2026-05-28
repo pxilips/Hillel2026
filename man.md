@@ -28,7 +28,7 @@
 <summary><b>systemd-analyze blame</b> — Service Boot Times</summary>
 
 * **Навіщо і коли:** Коли машина завантажується занадто довго і потрібно знайти конкретний найповільніший сервіс-винуватець.
-* **Що робить:** Виводить список усіх ініціалізованих служб, відсортованих від найповільнішої до найшвидшої.
+* **Що робить:** Вивода список усіх ініціалізованих служб, відсортованих від найповільнішої до найшвидшої.
 * **Що побачимо:** Текстовий список із мітками часу (наприклад, `5.2s networkd.service`) на самому початку виводу.
 * **Short Description:** *Lists running service units sorted by their initialization execution delay times during the bootstrap sequence.*
 </details>
@@ -50,7 +50,7 @@
 <summary><b>sudo apt install graphviz -y</b> — Graphic Engine Setup</summary>
 
 * **Навіщо і коли:** Виконується один раз перед генерацією графічних діаграм залежностей системних юнітів.
-* **Що робить:** Встановлює набір утиліт (включаючи компилятор `dot`), необхідних для конвертації текстових логів у векторну графіку (`.svg`).
+* **Що робить:** Встановлює набір утиліт (включаючи компілятор `dot`), необхідних для конвертації текстових логів у векторну графіку (`.svg`).
 * **Що побачимо:** Стандартний лог інсталяції пакетного менеджера `apt`.
 * **Short Description:** *Installs the Graphviz dot rendering package to enable automated generation of visual system charts.*
 </details>
@@ -58,7 +58,7 @@
 <details>
 <summary><b>systemd-analyze plot > bootup.svg</b> — Graphical Boot Timeline</summary>
 
-* **Навіщо і коли:** Чудово підходить для документації, детального візуального аналізу або звіту з лабораторної.
+* **Навіщо і коли:** Чудово підходить для документації, детального візуального аналізу або звіту з лабораторної роботи.
 * **Що робить:** Генерує інтерактивний векторний графік часової шкали всього процесу завантаження системи.
 * **Що побачимо:** Кольорову діаграму, де по осі X йде час, а по осі Y — список сервісів із смугами, які показують, коли кожен з них стартував і фінішував.
 * **Short Description:** *Generates a detailed, visual SVG timeline graph mapping out start and runtime durations for every boot workload.*
@@ -80,7 +80,7 @@
 <details>
 <summary><b>systemctl show-environment</b> — Global Systemd Variables</summary>
 
-* **Навіщо і коли:** Коли твій кастомний сервіс чи скрипт не бачить потрібний шлях (`PATH`) або системну змінну.
+* **Навіщо і коли:** Коли кастомний сервіс чи скрипт не бачить потрібний шлях (`PATH`) або системну змінну.
 * **Що робить:** Виводить список змінних оточення, які менеджер `systemd` передає всім процесам, які він запускає.
 * **Що побачимо:** Список у форматі `KEY=VALUE`, схожий на вивід класичної команди `env`.
 * **Short Description:** *Exposes global systemd environment configuration block allocations managed by PID 1.*
@@ -131,7 +131,7 @@
 
 * **Навіщо і коли:** Коли сервіс починає неконтрольовано споживати ресурси, і треба обмежити його ліміти пам'яті прямо зараз, без перезапуску та без редагування конфігів.
 * **Що робить:** На льоту створює динамічне обмеження ресурсів (cgroups v2) для сервісу. Зміни записуються у спеціальну папку `/etc/systemd/system.control/`.
-* **Що побачимо:** Команда виконується мовчки, а результат миттєво застосовується до живого процесу.
+* **Що побачимо:** Команда виконується без виводу тексту, а результат миттєво застосовується до живого процесу.
 * **Short Description:** *Mutates resource control limits in real-time utilizing live `set-property` assignments within cgroups v2 configuration layers.*
 </details>
 
@@ -187,7 +187,7 @@
 <details>
 <summary><b>systemctl list-units -t target [--all]</b> — List System Milestones</summary>
 
-* **Навіщо і коли:** Перевірка доступних у системі "етапів" завантаження, пошук потрібного таргета для залежностей.
+* **Навіщо і коли:** Перевірка доступних у системі "етапів" завантаження, пошук потрібного таргета для побудови залежностей.
 * **Що робить:** Виводить список усіх завантажених або взагалі наявних (`--all`) таргет-юнітів у системі.
 * **Що побачимо:** Таблицю з назвами `.target` файлів, їх описом та поточним станом (active/inactive).
 * **Short Description:** *Lists running or dormant target units inside systemd memory state parameters to audit structural targets.*
@@ -196,7 +196,7 @@
 <details>
 <summary><b>ls -l /sbin/{halt, poweroff, reboot, shutdown}</b> — Verify Power Tool Symlinks</summary>
 
-* **Навіщо і коли:** Розуміння архітектури сучасного Linux: доказ того, що всі процеси живлення тепер контролює один інструмент.
+* **Навіщо і коли:** Розуміння архітектури сучасного Linux: доказ того, що всі процеси керування живленням тепер контролює один інструмент.
 * **Що робить:** Перевіряє файли класичних утиліт вимкнення та перезавантаження комп'ютера.
 * **Що побачимо:** Вивід покаже, що всі ці файли є звичайними симлінками, які вказують на єдиний головний бінарник `/bin/systemctl`.
 * **Short Description:** *Exposes binary environment routing, showing that legacy system power utilities are symlinks pointing directly to systemctl.*
@@ -209,8 +209,8 @@
 <details>
 <summary><b>ls -l /lib/systemd/system | /run/systemd/system | /etc/systemd/system</b> — Audit File Hierarchy</summary>
 
-* **Навіщо і коли:** Для точного розуміння, звідки завантажується конфіг сервісу і який файл має найвищий пріоритет при перевантаженні налаштувань.
-* **Що робить:** Показує вміст трьох головних шарів ієрархії:
+* **Навіщо і коли:** Для точного розуміння, звідки завантажується конфіг сервісу і який файл має найвищий пріоритет при перевизначенні налаштувань.
+* **Що робить:** Показує вміст трьох головних шарів ієрархії конфігів:
   1. `/lib/...` (або `/usr/lib/...`) — заводські конфіги від розробників пакетів (руками не чіпаємо).
   2. `/run/...` — тимчасові юніти, створені в пам'яті під час поточної сесії.
   3. `/etc/...` — конфіги адміністратора, які мають **найвищий пріоритет** і перевизначають усе.
@@ -225,7 +225,7 @@
 <details>
 <summary><b>systemctl list-timers</b> — Monitor Automated Schedules</summary>
 
-* **Навіщо і коли:** Перевірити працездатність планувальника задач: які таски (бекапи, очищення логів, fstrim) зараз активні та коли вони запустяться.
+* **Навіщо і коли:** Перевірка працездатності планувальника задач: які таски (бекапи, очищення логів, fstrim) зараз активні та коли вони запустяться.
 * **Що робить:** Виводить детальну таблицю всіх активованих в системі таймерів.
 * **Що побачимо:** Стовпчики: *NEXT* (коли наступний запуск), *LEFT* (скільки залишилось чекати), *LAST* (коли був минулий запуск), і який саме сервіс-виконавець прикріплено.
 * **Short Description:** *Displays an active matrix of all operational cron-alternative timer units, tracking exact next execution countdowns.*
@@ -234,7 +234,7 @@
 <details>
 <summary><b>systemd-analyze calendar "Mon..Fri *-*-* 09..17:00/5"</b> — Parse & Validate Calendar Rules</summary>
 
-* **Навіщо і коли:** Тестування та перевірка синтаксису виразу розкладу (`OnCalendar`) **перед** тим, як прописувати його в реальний файл таймера.
+* **Навіщо і коли:** Тестування та перевірка синтаксису виразу розкладу (`OnCalendar`) **перед** тим, как прописувати його в реальний файл таймера.
 * **Що робить:** Проганяє рядок через синтаксичний аналізатор systemd та розраховує точний час майбутніх запусків.
 * **Що побачимо:** Підтвердження валідності або опис помилки, а також точні дати та секунди наступних 5 реальних спрацьовувань правила.
 * **Short Description:** *Validates automation calendar expressions through systemd temporal parser engines to preview targeted schedules.*
@@ -284,7 +284,7 @@
 <summary><b>sudo journalctl --since=-5m / --since="2026-05-28 12:00" --until now</b> — Time-Window Filtering</summary>
 
 * **Навіщо і коли:** Коли відомо точний час аварії сервісу, і потрібно відсікти мільйони попередніх рядків логів.
-* **Що робить:** Обмежеє пошукову видачу повідомлень суворо в межах заданого таймфрейму (відносного, наприклад, останні 5 хвилин, або абсолютного за датою).
+* **Що робить:** Обмежеє пошукову видачу повідомлень суворо в мебах заданого таймфрейму (відносного, наприклад, останні 5 хвилин, або абсолютного за датою).
 * **Що побачимо:** Логи подій, які відбулися суворо у зазначений проміжок часу.
 * **Short Description:** *Executes advanced query parsing to return system events matched strictly against custom time window boundaries.*
 </details>
@@ -293,7 +293,7 @@
 <summary><b>sudo journalctl _UID=1001 / _SYSTEMD_CGROUP=...</b> — Internal Metadata Filtering</summary>
 
 * **Навіщо і коли:** Розслідування інцидентів безпеки або глибокий дебаг, коли треба побачити лог дій конкретного користувача (за його UID) або процесів у конкретній cgroup.
-* **Що робить:** Здійснює вибірку логів за внутрішніми системними прапорами-метаданими Linux.
+* **Що робить:** Здійснює видірку логів за внутрішніми системними праоами-метаданими Linux.
 * **Що побачимо:** Тільки ті записи, які були згенеровані процесами з відповідними низькорівневими атрибутами.
 * **Short Description:** *Audits internal journal metadata fields, returning entries isolated by verified system owner identity or execution cgroup scope paths.*
 </details>
@@ -319,7 +319,7 @@
 <details>
 <summary><b>sudo journalctl --vacuum-size=500M</b> — Manual Log Space Retention Cleanup</summary>
 
-* **Навіщо і коли:** Коли диски забиті логами, і потрібно терміново звільнити гігабайти простору, видаливши старе сміття, але зберігши найсвіжіші записи.
+* **Навіщо і коли:** Коли диски забиті логами, і потрібно терміново звільнить гігабайти простору, видаливши старе сміття, але зберігши найсвіжіші записи.
 * **Що робить:** Послідовно видаляє найстаріші файли журналів, доки сумарний об'єм логів на диску не зменшиться до чітко вказаного ліміту (наприклад, 500 МБ).
 * **Що побачимо:** Звіт про те, скільки файлів логів було видалено та скільки місця звільнено.
 * **Short Description:** *Triggers immediate physical data retention maintenance routines, purging oldest files down to a specific storage quota limit.*
@@ -327,7 +327,47 @@
 
 ---
 
-## 🚨 9. Resource Stress Monitoring (cgroups & PSI)
+## 🌐 9. Time Synchronization (systemd-timesyncd)
+
+<details>
+<summary><b>timedatectl status</b> — View System Time & NTP State</summary>
+
+* **Навіщо і коли:** Коли збився системний час, не сходяться логи з сервером моніторингу або потрібно дізнатися поточну таймзону.
+* **Що робить:** Виводить детальний статус системного часу, стану апаратного годинника (RTC) та активності мережевої синхронізації.
+* **Що побачимо:** Звіт із текстовими полями, де вказано локальний час, всесвітній час (UTC), назву часового поясу та статус `NTP service: active`.
+* **Short Description:** *Returns comprehensive local, universal, and hardware time metrics alongside network synchronization service flags.*
+</details>
+
+<details>
+<summary><b>sudo timedatectl set-ntp true</b> — Enable Network Time Synchronization</summary>
+
+* **Навіщо і коли:** Коли годинник сервера постійно «поспішає» або відстає, і потрібно увімкнути автоматичне вирівнювання часу по інтернету.
+* **Що робить:** Активує та запускає внутрішній демон `systemd-timesyncd` для фонової синхронізації часу через NTP-сервери.
+* **Що побачимо:** Команда виконується мовчки, а статус у `timedatectl` змінюється на синхронізований.
+* **Short Description:** *Activates the background systemd-timesyncd framework to ensure persistent atomic clock sync loops.*
+</details>
+
+<details>
+<summary><b>sudo timedatectl set-timezone Europe/Kyiv</b> — Adjust Local Timezone</summary>
+
+* **Навіщо і коли:** Налаштування правильного регіонального часу на новому сервері, щоб у логах відображався коректний місцевий час.
+* **Що робить:** Змінює символічне посилання часового поясу в системі на обраний регіон.
+* **Що побачимо:** Команда виконується без виводу тексту, час системи миттєво адаптується під часовий пояс Києва.
+* **Short Description:** *Updates the host configuration pointers to map the current execution thread to a specific local timezone.*
+</details>
+
+<details>
+<summary><b>sudo hwclock --hctosys</b> — Hardware to System Clock Override</summary>
+
+* **Навіщо і коли:** Коли мережа недоступна (NTP не працює), а час системи сильно збився. Дозволяє скопіювати точний час із фізичної плати сервера.
+* **Що робить:** Зчитує показники з незалежного апаратного годинника материнської плати (RTC) і примусово записує їх у пам'ять операційної системи.
+* **Що побачимо:** Миттєве вирівнювання системного часу без звернення до інтернету.
+* **Short Description:** *Forces a cold read from the motherboard real-time clock chip to overwrite active system execution time offsets.*
+</details>
+
+---
+
+## 🚨 10. Resource Stress Monitoring (cgroups & PSI)
 
 <details>
 <summary><b>systemd-cgtop</b> — Real-time CGroup Resource Monitor</summary>
@@ -336,6 +376,15 @@
 * **Що робить:** Інтерактивний монітор, який агрегує та сортує споживання CPU, Memory та I/O не за процесами, а за контрольними групами (cgroups).
 * **Що побачимо:** Живу таблицю, де видно відсоток навантаження окремо по слайсах (`system.slice`, `user.slice`) та кожній конкретній службі.
 * **Short Description:** *Provides a real-time interactive performance monitor mapping operational metrics directly to cgroup tree structures.*
+</details>
+
+<details>
+<summary><b>sudo stress-ng --vm 4 --vm-bytes 80% --timeout 60s</b> — Simulate Critical Memory Stress</summary>
+
+* **Навіщо і коли:** Штучне тестування та перевірка поведінки системи (та налаштованого `systemd-oomd`) в умовах критичної нестачі оперативної пам'яті.
+* **Що робить:** Запускає важкі обчислювальні потоки, які агресивно забивають до 80% всієї вільної пам'яті хоста на 1 хвилину.
+* **Що побачимо:** Логи виділення пам'яті, зростання графіків навантаження, та можливе екстрене спрацьовування захисних механізмів OOM.
+* **Short Description:** *Spawns synthetic stress threads utilizing stress-ng to aggressively exhaust available system RAM for validation testing.*
 </details>
 
 <details>
@@ -350,7 +399,7 @@
 <details>
 <summary><b>cat /proc/pressure/io</b> — Check Storage Throughput Pressures</summary>
 
-* **Навіщо і коли:** Коли є підозра, що повільний диск або забитий дисковий масив стає «вузьким горлышком» (bottleneck), що гальмує роботу софту.
+* **Навіщо і коли:** Коли є підозра, що повільний диск або забитий дисковий масив стає «вузьким горлом» (bottleneck), що гальмує роботу софту.
 * **Що робить:** Показує відсоток часу, протягом якого хоча б один процес (`some`) або взагалі всі готові до роботи процеси (`full`) стояли і нічого не робили, чекаючи на відповідь від дискових накопичувачів.
 * **Що побачимо:** Статистику PSI затримок введення-виведення. Нулі означають повну свободу дискової підсистеми.
 * **Short Description:** *Evaluates storage subsystem resource starvation levels using kernel PSI metrics to find disk throughput performance bottlenecks.*
