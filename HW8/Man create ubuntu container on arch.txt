@@ -1,0 +1,76 @@
+1. Install debootstrap whith container utilites
+sudo pacman -S debootstrap --noconfirm
+
+2. Install Ubuntu container
+sudo debootstrap --arch=amd64 noble /var/lib/machines/noble1 http://archive.ubuntu.com/ubuntu/
+
+3. Connecting to a container
+sudo systemd-nspawn -D /var/lib/machines/noble1 --machine noble1
+
+4. Add password inside container
+passwd
+
+5. Start container
+sudo machinectl start noble1
+
+6. Check container status
+machinectl status noble1
+
+7. Login in container
+sudo machinectl login noble1
+
+
+machinectl status noble1
+noble1(f0d8397010554e99b5d27fbe250dc8df)
+           Since: Thu 2026-05-28 15:39:13 UTC; 3min 16s ago
+          Leader: 15985 (systemd)
+         Superv.: 15982 (systemd-nspawn)
+         Service: systemd-nspawn; class container
+            Root: /var/lib/machines/noble1
+           Iface: ve-noble1
+              OS: Ubuntu 24.04 LTS
+        ID Shift: 1855913984
+            Unit: systemd-nspawn@noble1.service
+        Subgroup: payload
+                  ├─init.scope
+                  │ └─15985 /usr/lib/systemd/systemd
+                  └─system.slice
+                    ├─console-getty.service
+                    │ └─16082 /sbin/agetty -o "-p -- \\u" --noclear --keep-baud - 115200,38400,9600 dumb
+                    ├─cron.service
+                    │ └─16076 /usr/sbin/cron -f -P
+                    ├─dbus.service
+                    │ └─16077 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-
+only
+                    ├─rsyslog.service
+                    │ └─16084 /usr/sbin/rsyslogd -n -iNONE
+                    ├─systemd-journald.service
+                    │ └─16017 /usr/lib/systemd/systemd-journald
+                    ├─systemd-logind.service
+                    │ └─16075 /usr/lib/systemd/systemd-logind
+                    └─systemd-resolved.service
+                      └─16068 /usr/lib/systemd/systemd-resolved
+
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Reached target getty.target - Login Prompts.
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Started systemd-logind.service - User Login Management.
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Started rsyslog.service - System Logging Service.
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Reached target multi-user.target - Multi-User System.
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Reached target graphical.target - Graphical Interface.
+May 28 15:39:13 archlinux systemd-nspawn[15982]:          Starting systemd-update-utmp-runlev… Record Runlevel Change in UTMP...
+May 28 15:39:13 archlinux systemd-nspawn[15982]: [  OK  ] Finished systemd-update-utmp-runlev… - Record Runlevel Change in UTMP.
+May 28 15:39:14 archlinux systemd-nspawn[15982]:
+May 28 15:39:14 archlinux systemd-nspawn[15982]: Ubuntu 24.04 LTS archlinux pts/0
+May 28 15:39:14 archlinux systemd-nspawn[15982]:
+[pxilips@archlinux ~]$ sudo machinectl login noble1
+Connected to machine noble1. Press ^] three times within 1s to exit session.
+
+Ubuntu 24.04 LTS archlinux pts/1
+
+archlinux login: root
+Password:
+Welcome to Ubuntu 24.04 LTS (GNU/Linux 7.0.10-arch1-1 x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+root@archlinux:~#
