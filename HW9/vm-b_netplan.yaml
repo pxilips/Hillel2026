@@ -1,0 +1,19 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens33:
+      match:
+        macaddress: 00:0c:29:d2:4b:29
+      set-name: to_A
+      addresses:
+        - 192.168.100.2/24
+      routes:
+        - to: 192.168.102.0/24
+          via: 192.168.100.1
+    ens37:
+      match:
+        macaddress: 00:0c:29:d2:4b:33
+      set-name: to_db
+      addresses:
+        - 192.168.101.1/24
+  version: 2

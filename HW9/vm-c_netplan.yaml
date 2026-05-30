@@ -1,0 +1,23 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens33:
+      match:
+        macaddress: 00:0c:29:5d:78:a5
+      set-name: to_A
+      addresses:
+        - 192.168.100.3/24
+      routes:
+        - to: default
+          via: 192.168.100.1
+        - to: 192.168.101.0/24
+          via: 192.168.100.1
+      nameservers:
+        addresses: [8.8.8.8]
+    ens37:
+      match:
+        macaddress: 00:0c:29:5d:78:af
+      set-name: to_wp
+      addresses:
+        - 192.168.102.1/24
+  version: 2
